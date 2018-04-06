@@ -1,0 +1,54 @@
+html {
+    background-color: blueviolet;
+    height: 720px;
+}
+#time {
+    
+}
+#vt {
+    padding-left: 10%;
+    font-style: cursive;
+    font-size: 20px;
+    color: gold;
+}
+#vt_t {
+    font-style: cursive;
+    font-size: 20px;
+    color: palevioletred;
+}
+.resource_title {
+    font-size: 20px;
+    color: green;
+    font-style: oblique;
+}
+#resources {
+    font-size: 16px;
+    color: blue;
+    font-style: normal;
+}
+#more_resources {
+    color: aquamarine;
+    font-size: 12px;
+}
+.resource_border {
+    border-style: dashed;
+    border-width: 2px;
+    border-color: palevioletred;
+}
+#left {
+    float: left;
+    padding-bottom: 90px;
+}
+#center {
+    text-align: center;
+}
+#right {
+    float: right;
+    
+    text-align: center;
+}
+.img_border {
+    border-style: dashed;
+    border-color: aqua;
+    border-width: 2px;
+}

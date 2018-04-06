@@ -1,0 +1,62 @@
+html {
+    background-color: black;
+    text-align: center;
+}
+.title {
+    padding-right: 6%
+}
+.body {
+    float: left;
+}
+p {
+    color: mediumpurple;
+    font-family: cursive;
+    font-size: 30px;
+}
+h6 {
+    color: aliceblue;
+    font-size: 20px;
+    float: right;
+}
+h3, h4, h5 {
+    color: darkgreen;
+    font-family: monospace;
+    font-size: 35px;
+    
+}
+h2 {
+    border-width: 20px;
+    border-color: aqua;
+    color: red;
+    padding-top: 50%;
+}
+h1 {
+    color: lawngreen;
+    font-family: consolas;
+    font-size: 50px;
+}
+img {
+    height: 325px;
+    width: 325px;
+    padding-top: 25px;
+    text-align: center;
+}
+.bottom {
+    padding-top: 30%;;
+}
+.radio {
+    float: left;
+    width: 288;
+    height: 162;
+    
+}
+#time {
+    font-size: 40px;
+    padding: 10px;
+    color: mediumpurple;
+}
+#nullified {
+    font-size: 40px;
+    padding: 10px;
+    color: mediumpurple;
+}

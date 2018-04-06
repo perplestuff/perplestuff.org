@@ -1,0 +1,56 @@
+<DOCTYPE javascript>
+<html>
+<header>
+	<script>
+
+		var fortune = function () {
+
+		var randomInt = Math.floor(Math.random() * 5) + 1;
+
+		switch (randomInt) {
+			case 1:
+				alert ("very very bad luck, dont leave the house.");
+				break;
+			case 2:
+				alert ("bad luck, be careful.");
+				break;
+			case 3:
+				alert ("meh, you'll have an average day.");
+				break;
+			case 4:
+				alert ("good luck, have a nice day.");
+				break;
+			case 5:
+				alert ("godly luck, you will have the best day of your life.");
+				break;
+			default:
+				alert ("error.");
+		}
+	}
+
+	</script>
+</header>
+
+<body onload="lol()">
+	<script>
+	function lol () {
+		var question = true;
+		
+		while (question) {
+			var answer = prompt ("would you like your fortune today?", "yes, no");
+				if (answer == 'yes') {
+					fortune();
+					question = false;
+				} else if (answer == 'no') {
+					alert ("ok then, have a nice day.");
+					question = false;
+				} else {
+					alert ("i dont understand, please type: 'yes' or 'no'");
+				}
+			}
+		}
+	</script>
+	<button onclick="lol()"><b>Try Again</b></button>
+	<h1><a href="index.php">Go Back</a></h1>
+</body>
+</html>

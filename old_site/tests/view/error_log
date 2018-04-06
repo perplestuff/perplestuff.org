@@ -1,0 +1,4 @@
+[15-Dec-2017 05:44:08 UTC] PHP Notice:  Undefined variable: tasks in /home/xa1531xx/public_html/tests/view/index.view.php on line 10
+[15-Dec-2017 05:44:08 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/xa1531xx/public_html/tests/view/index.view.php on line 10
+[15-Dec-2017 05:44:16 UTC] PHP Notice:  Undefined variable: tasks in /home/xa1531xx/public_html/tests/view/index.view.php on line 10
+[15-Dec-2017 05:44:16 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/xa1531xx/public_html/tests/view/index.view.php on line 10

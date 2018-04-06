@@ -1,0 +1,75 @@
+html {
+    background-color: black;
+}
+#body {
+    text-align: center;
+}
+.title {
+    color: yellow;
+    font-family: consolas;
+    font-size: 40px;
+}
+h1 {
+    color: blueviolet;
+}
+ul {
+    color: pink;
+    font-style: italic;
+}
+b {
+    color: green;
+    font-size: 18px;
+    font-family: monospace;
+}
+p {
+    color: green;
+    font-size: 16px;
+    font-family: serif;
+}
+p1 {
+    color: purple;
+    font-size: 16px;
+    font-family: consolas;
+    text-align: left;
+}
+#time {
+    font-size: 25px;
+    color: white;
+}
+.pics {
+    height: 280px;
+    width: auto;
+    padding: 3px;
+}
+#chat {
+    color: mediumpurple;
+    font-size: 16px;
+}
+small {
+    color: blue;
+}
+img {
+    height: 140px;
+    width: auto;
+}
+#vid {
+    height: 140px;
+    width: 280px;
+}
+#file {
+    color: aliceblue;
+}
+#left {
+    float: left;
+}
+#center {
+    text-align: center;
+}
+#right {
+    float: right;
+}
+#files {
+    color: white;
+    size: 18px;
+
+}

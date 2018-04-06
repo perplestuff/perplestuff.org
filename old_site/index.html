@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>Be Back Soon!</title>
+		<meta charset="utf-8">
+		<style>
+			html {
+				text-align: center;
+			}
+			.h {
+				font-family: italic;
+			}
+			img {
+				height: 300px;
+			}
+		</style>
+		<script>
+			function start () {
+				setInterval (function () {
+					var rand = Math.floor (Math.random() * 9);
+					var cv = "00FFFF";
+					switch (rand) {
+						case 1:
+						cv = "CCCCCC";
+						break;
+						case 2:
+						cv = "3366FF";
+						break;
+						case 3:
+						cv = "CC66FF";
+						break;
+						case 4:
+						cv = "FFFF00";
+						break;
+						case 5:
+						cv = "00FFFF";
+						break;
+						case 6:
+						cv = "0000FF";
+						case 7:
+						cv = "FF00FF";
+						break;
+						case 8:
+						cv = "FF0000";
+						break;
+						default:
+						cv = "66FF33";
+					}
+				document.body.style.backgroundColor = "#" + cv;
+			}, 1000);
+		}
+		</script>
+	</head>
+	<body onload="start();">
+		<h1 class="h"><b>Perplestuff.org</b> will be back soon!<br> Hang in there kiddos.</h1>
+		<img src="pic.jpg">
+	</body>
+</html>
