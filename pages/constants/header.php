@@ -1,7 +1,6 @@
 <?php
   session_start ();
-
-  if (isset ($_COOKIE ['Access'])) {
+  if (isset ($_COOKIE ['Access']) && $_COOKIE ['Access'] != '') {
     $cookies = new cookies ($conf);
     $users = $cookies ->verifyCookie (
       '*',
@@ -9,15 +8,12 @@
       'cookie',
       $_COOKIE ['Access']
     );
-    if ($cookies ->error) {
-      setcookie($_COOKIE ['Access'], '', time() - 1000,"/");
-    } else {
+    if (!$cookies ->error) {
       foreach ($users as $user) {
         user::session ($user);
       }
     }
   }
-  var_dump ($_SESSION);
 ?>
 <!DOCTYPE html>
 <html lang="en">

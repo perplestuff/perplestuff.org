@@ -1,16 +1,19 @@
 <?php require 'constants/header.php'; ?>
+<?php
+
+if (isset ($_POST ['logOut'])) {
+  session_destroy ();
+  setcookie ('Access', '', time ()-3600);
+  header ("Refresh: 0");
+}
+
+ ?>
 <div id="header">
   <header>[Profile]</header>
 </div>
 <div id="left">
   <?php require 'constants/nav.php'; ?>
   <div id="info"><br/>
-    <div id="options">
-      <form action="options" method="POST">
-        <input type="text" name="option" title="Options."/>
-        <input type="submit" name="command"/>
-      </form>
-    </div>
     <ul>
       <li>Max length of name is 15.</li>
       <li>Max length of description is 50.</li>
@@ -94,11 +97,9 @@ if (isset ($_POST ['update'])) {
     $_POST ['pass'],
     $_POST ['confPass']
   );
+  header ("Refresh: 0");
 }
-if (isset ($_POST ['logOut'])) {
-  $user ->logout();
-  header ('Refresh: 0');
-}
+
 
 
 ?>

@@ -158,11 +158,6 @@ class user { //controls the user account
     }
     session_destroy ();
   }
-  public function logout () {
-    setcookie ('Access', '', time () - 1, '/');
-    session_destroy ();
-    warning ('Successful logout');
-  }
   public static function session ($login) {
     $_SESSION = [
       'id' => $login ->id,

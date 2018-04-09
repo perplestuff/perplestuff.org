@@ -9,3 +9,5 @@
    <li><a href="specialthanks">Special Thanks.</a></li>
    <li><a href="thanks">Support Me.</a></li>
 </ul>
+
+<?php require 'options.php' ?>
