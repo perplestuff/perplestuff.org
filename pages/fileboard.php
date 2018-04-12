@@ -45,16 +45,16 @@
 
 <?php
 // CONTROLLER
-if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
-  $up = new upload ($_SESSION ['name']);
-  $up ->file ($_FILES ['file']);
-  $up ->fileFilters (
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  $up = new upload ($_SESSION['name']);
+  $up->file ($_FILES['file']);
+  $up->fileFilters (
     array ('jpg', 'jpeg', 'png', 'gif'),
     1000000,
     75
   );
-  $up ->fileboard (
-    $_POST ['desc'],
+  $up->fileboard (
+    $_POST['desc'],
     'pages/storage/file.txt',
     'pages/storage/uploads/',
     15

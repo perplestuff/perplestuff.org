@@ -4,26 +4,34 @@
 <?php require 'constants/header.php'; ?>
 <script type="text/javascript">
 
-function submit_msg() {
-    var message = message.value;
-    var xmlHttp = new XMLHttpRequest();
+$(document).ready(function() {
+  $('#chat').load('load.php');
 
-    xmlhttp.open('GET','messageboard?message='+message, true);
-    xmlhttp.send();
-}
-
-$(document).ready(function(e){
-    $.ajaxSetup({cache:false});
-    setInterval(function(){
-        $('#chat').load('pages/storage/messages.txt');
-    },1000);
+  $('#post').submit(function() {
+    return false;
+  });
 });
 
-xmlhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        var chats = document.getElementById("chat").innerHTML = xmlhttp.responseText;
-    }
-}
+// function submit_msg() {
+//     var message = message.value;
+//     var xmlHttp = new XMLHttpRequest();
+//
+//     xmlhttp.open('GET','messageboard?message='+message, true);
+//     xmlhttp.send();
+// }
+//
+// $(document).ready(function(e){
+//     $.ajaxSetup({cache:false});
+//     setInterval(function(){
+//         $('#chat').load('pages/storage/messages.txt');
+//     },1000);
+// });
+//
+// xmlhttp.onreadystatechange = function() {
+//     if (this.readyState == 4 && this.status == 200) {
+//         var chats = document.getElementById("chat").innerHTML = xmlhttp.responseText;
+//     }
+// }
 </script>
 
 <div id="header">
@@ -48,10 +56,10 @@ xmlhttp.onreadystatechange = function() {
   </div>
   <div id="center">
     <div class="msg">
-      <div id="chat"><p>Loading...</p></div>
-      <form action="messageboard">
-        <p>Message: <input type="text" name="message" size="35" autofocus /></p>
-        <button onclick="submit_msg()" value="Submit">Send Message</button><br/>
+      <div id="chat"></div>
+      <form action="messageboard" id="post">
+        <p>Message: <input type="text" name="msg" id="msg" size="35" autofocus /></p>
+        <input type="submit" id="submit"/><br/>
       </form>
     </div>
   </div>
@@ -62,22 +70,22 @@ xmlhttp.onreadystatechange = function() {
 <?php
 
 // CONTROLLER
-if (isset ($_GET ['message'])) {
-  if ($_SESSION) {
-    //username
-    $up = new upload ($_SESSION ['name']);
-    //message, postIdle
-    $up ->msg (
+if (isset($_GET ['message'])) {
+    if ($_SESSION) {
+        //username
+        $up = new upload($_SESSION ['name']);
+        //message, postIdle
+        $up ->msg(
       $_GET ['message'],
       1
     );
-    //max str length, min str length
-    $up ->msgFilters (
+        //max str length, min str length
+        $up ->msgFilters(
       100,
       1
     );
-    //ipBlock, spamwords, spamstr, maxlines, file location, maxSamestr
-    $up ->messageboard (
+        //ipBlock, spamwords, spamstr, maxlines, file location, maxSamestr
+        $up ->messageboard(
       '',
       '',
       '',
@@ -85,9 +93,9 @@ if (isset ($_GET ['message'])) {
       3,
       'pages/storage/messages.txt'
     );
-  } else {
-    warning ('You are not logged in, please try again.');
-  }
+    } else {
+        warning('You are not logged in, please try again.');
+    }
 }
 
 

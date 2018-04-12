@@ -31,16 +31,16 @@
 
 <?php
 
-if (isset ($_POST ['submit'])) {
-  $coin = new coin ($conf);
-  $coin ->captcha ($_POST ['coinhive-captcha-token'], 256);
-  if ($coin ->error) {
-    die (warning ('Remember to verify yourself.'));
-  }
-  $user = new user ($conf);
-  $user ->login (
-    $_POST ['username'],
-    $_POST ['password'],
-    $_POST ['remember']
+if (isset($_POST['submit'])) {
+    $coin = new coin($conf);
+    $coin->captcha($_POST['coinhive-captcha-token'], 256);
+    if ($coin->error) {
+        die(warning('Remember to verify yourself.'));
+    }
+    $user = new user($conf);
+    $user->login(
+    $_POST['username'],
+    $_POST['password'],
+    $_POST['remember']
   );
 }

@@ -1,7 +1,7 @@
 <?php
-$conf = [];
+$conf =[];
 
-$conf ['conf'] = require 'config.php';
+$conf['conf'] = require 'config.php';
 
 require 'core/router.php';
 require 'core/functions.php';
@@ -11,7 +11,7 @@ require 'core/upload.php';
 require 'core/coin.php';
 require 'core/cookies.php';
 
-$conf ['database'] = new Query (
-    connection::make ($conf ['conf'] ['database'])
+$conf['database'] = new Query(
+    connection::make($conf['conf']['database'])
 );
-$conf ['coin'] = $conf ['conf'] ['coin'];
+$conf['coin'] = $conf['conf']['coin'];

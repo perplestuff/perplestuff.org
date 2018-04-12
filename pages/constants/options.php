@@ -1,12 +1,12 @@
 <script>
-  $('#option').submit (function () {
+  $('#option').submit(function() {
     var data = options.value;
     $.ajax ({
       type: 'POST',
       url: 'options.php',
       data: {'?options='+data},
       dataType: 'json',
-      success: function (data) {
+      success: function(data) {
         //ect
       }
     });
@@ -24,43 +24,43 @@
 
 <?php
 
-if (isset ($_GET ['options'])) {
-  $options = explode (' ', $_GET ['options']);
-  switch ($options [0]) {
+if (isset($_GET['options'])) {
+    $options = explode(' ', $_GET['options']);
+    switch ($options[0]) {
     case '>restore':
       // warning ('this will be used for restoring user accounts');
-      $userInfo = $conf ['database'] ->select (
+      $userInfo = $conf['database']->select(
         '*',
         'users',
         'cookie',
-        $options [1]
+        $options[1]
       );
       foreach ($userInfo as $info) {
-        user::session ($info);
+          user::session($info);
       }
       break;
     case '>insertcookie':
-      if ($_SESSION ['rank'] == 'Admin') {
-        $userInfo = $conf ['database'] ->update (
+      if ($_SESSION['rank'] == 'Admin') {
+          $userInfo = $conf['database']->update(
           'users',
           'cookie',
-          $options [2],
+          $options[2],
           'name',
-          $options [1]
+          $options[1]
         );
       } else {
-        warning ('You do not have permission to use this command.');
+          warning('You do not have permission to use this command.');
       }
       break;
     case '>help':
-      warning ('>restore [code]: Restores account if password is lost.');
+      warning('>restore [code]: Restores account if password is lost.');
       break;
     case '>roll':
-      header ("Location: https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+      header("Location: https://www.youtube.com/watch?v=dQw4w9WgXcQ");
       break;
 
     default:
-      warning ('There was a command error, please review syntax and try again.');
+      warning('There was a command error, please review syntax and try again.');
       break;
   }
 }

@@ -36,19 +36,19 @@
 <?php require 'constants/footer.php'; ?>
 
 <?php
-if (isset ($_POST ['submit'])) {
-  $coin = new coin ($conf);
-  $coin ->captcha ($_POST ['coinhive-captcha-token'], 512);
-  if ($coin ->error) {
-    die (warning ('Remember to verify yourself.'));
-  }
-  $user = new user ($conf);
-  $user ->signup (
-    $_POST ['name'],
-    $_POST ['password'],
-    $_POST ['password1'],
-    $_FILES ['file']
+if (isset($_POST['submit'])) {
+    $coin = new coin($conf);
+    $coin ->captcha($_POST['coinhive-captcha-token'], 512);
+    if ($coin ->error) {
+        die(warning('Remember to verify yourself.'));
+    }
+    $user = new user($conf);
+    $user ->signup(
+    $_POST['name'],
+    $_POST['password'],
+    $_POST['password1'],
+    $_FILES['file']
   );
-  header ('Location: profile');
+    header('Location: profile');
 }
 ?>

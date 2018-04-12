@@ -2,17 +2,17 @@
 //set how many outputs per page
 $resultsNum = 5;
 //get the page number if there is one
-if (isset ($_GET ['page'])) {
-  $pageNum = $_GET ['page'];
+if (isset($_GET['page'])) {
+    $pageNum = $_GET['page'];
 } else {
-  $pageNum = 1;
+    $pageNum = 1;
 }
 //set the start output for the beginning of page
-$pageStart = abs (($pageNum - 1) * $resultsNum) + 1;
+$pageStart = abs(($pageNum - 1) * $resultsNum) + 1;
 //set the end output for the end of page
 $pageEnd = $pageStart + $resultsNum - 1;
 //fetch output from database
-$results = $conf ['database'] ->between (
+$results = $conf['database']->between(
   'name, rank, pfp, descript, date',
   'users',
   'id',
@@ -20,18 +20,18 @@ $results = $conf ['database'] ->between (
   $pageEnd
 );
 //check if user submitted a search request then fetch it from database
-if (isset ($_POST ['submit'])) {
-  $search = htmlspecialchars ($_POST ['search']);
+if (isset($_POST['submit'])) {
+    $search = htmlspecialchars($_POST['search']);
 
-  $results = $conf ['database'] ->select (
+    $results = $conf['database']->select(
     'name, rank, pfp, descript, date',
     'users',
     'name',
     $search
   );
-  if (!$results) {
-    warning ('There is no user with that name, please check it and try again.');
-  }
+    if (!$results) {
+        warning('There is no user with that name, please check it and try again.');
+    }
 }
 
  ?>
@@ -57,23 +57,23 @@ if (isset ($_POST ['submit'])) {
     </form>
     <?php
     //count the total results from database
-      $pageItems = $conf ['database'] ->count (
+      $pageItems = $conf['database']->count(
         'users'
       );
       //get the total number of pages and set them depending of current page
-      $tabsTotal = ceil ($pageItems / $resultsNum);
+      $tabsTotal = ceil($pageItems / $resultsNum);
       if ($tabsTotal < 11) {
-        $tabsStart = 1;
-        $tabsEnd = $tabsTotal;
+          $tabsStart = 1;
+          $tabsEnd = $tabsTotal;
       } elseif ($pageNum <= 5) {
-        $tabsStart = 1;
-        $tabsEnd = $tabsStart + 10;
+          $tabsStart = 1;
+          $tabsEnd = $tabsStart + 10;
       } elseif ($pageNum + 5 >= $tabsTotal) {
-        $tabsStart = $tabsTotal - 10;
-        $tabsEnd = $tabsTotal;
+          $tabsStart = $tabsTotal - 10;
+          $tabsEnd = $tabsTotal;
       } else {
-        $tabsStart = $pageNum - 5;
-        $tabsEnd = $pageNum + 5;
+          $tabsStart = $pageNum - 5;
+          $tabsEnd = $pageNum + 5;
       }
 
       ?>
@@ -81,17 +81,19 @@ if (isset ($_POST ['submit'])) {
     <div id="profile">
       <?php for ($i = $tabsStart; $i <= $tabsEnd; $i++) : ?>
         <b>[<a
-          <?php if ($pageNum == $i) {echo 'style="color:red;"';}?>
+          <?php if ($pageNum == $i) {
+          echo 'style="color:red;"';
+      }?>
           href='<?= requests::URI().'?page='.$i ?>'
           ><?= $i ?></a>]</b>
       <?php endfor; ?>
-      <?php if (isset ($results)) : ?>
+      <?php if (isset($results)) : ?>
         <?php foreach ($results as $res) : ?>
           <p>User:</p>
-          <p><?= $res ->name; ?> [<?= $res ->rank; ?>]</p>
-          <img src='<?= $res ->pfp; ?>'>
-          <p><?= $res ->descript; ?></p>
-          <p><?= $res ->date; ?></p>
+          <p><?= $res->name; ?> [<?= $res->rank; ?>]</p>
+          <img src='<?= $res->pfp; ?>'>
+          <p><?= $res->descript; ?></p>
+          <p><?= $res->date; ?></p>
         <?php endforeach; ?>
       <?php endif; ?>
     </div>

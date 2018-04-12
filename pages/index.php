@@ -2,15 +2,15 @@
 
 // CONTROLLER
 
-$rows = $conf ['database'] ->count ('users');
+$rows = $conf['database']->count('users');
 $maxRow = $rows - 4;
 
-$profiles = $conf ['database'] ->between (
-	'name, pfp, date',
-	'users',
-	'id',
-	$maxRow,
-	$rows
+$profiles = $conf['database']->between(
+    'name, pfp, date',
+    'users',
+    'id',
+    $maxRow,
+    $rows
 );
 
 ?>
@@ -48,9 +48,9 @@ $profiles = $conf ['database'] ->between (
 			<ul>
 					<?php foreach ($profiles as $prof) : ?>
 						<li>
-						<p><?= $prof ->name; ?></p>
-						<img src='<?= $prof ->pfp; ?>'><br/>
-						<p><?= $prof ->date; ?></p>
+						<p><?= $prof->name; ?></p>
+						<img src='<?= $prof->pfp; ?>'><br/>
+						<p><?= $prof->date; ?></p>
 					</li><br/>
 					<?php endforeach; ?>
 			</ul>

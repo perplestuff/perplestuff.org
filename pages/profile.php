@@ -1,10 +1,10 @@
 <?php require 'constants/header.php'; ?>
 <?php
 
-if (isset ($_POST ['logOut'])) {
-  session_destroy ();
-  setcookie ('Access', '', time ()-3600);
-  header ("Refresh: 0");
+if (isset($_POST ['logOut'])) {
+    session_destroy();
+    setcookie('Access', '', time()-3600);
+    header("Refresh: 0");
 }
 
  ?>
@@ -57,10 +57,10 @@ if (isset ($_POST ['logOut'])) {
   </div>
   <div id="center">
     <div id="profile">
-      <header><?= '~'.$_SESSION ['name'].' ['.$_SESSION ['rank'].']'; ?></header><br/>
-      <img src='<?= $_SESSION ['pfp']; ?>'/><br/>
-      <?php if ($_SESSION ['desc']) : ?>
-        <p><?= $_SESSION ['desc']; ?></p>
+      <header><?= '~'.$_SESSION['name'].' ['.$_SESSION['rank'].']'; ?></header><br/>
+      <img src='<?= $_SESSION['pfp']; ?>'/><br/>
+      <?php if ($_SESSION['desc']) : ?>
+        <p><?= $_SESSION['desc']; ?></p>
       <?php else : ?>
         <p>No description available.</p>
       <?php endif; ?>
@@ -81,23 +81,23 @@ if (isset ($_POST ['logOut'])) {
 <?php require 'constants/footer.php'; ?>
 
 <?php
-$user = new user ($conf);
-if (isset ($_POST ['update'])) {
-  $coin = new coin ($conf);
-  $coin ->captcha ($_POST ['coinhive-captcha-token'], 256);
-  if ($coin ->error) {
-    die (warning ('Remember to verify yourself.'));
-  }
-  $user ->edit (
+$user = new user($conf);
+if (isset($_POST['update'])) {
+    $coin = new coin($conf);
+    $coin->captcha($_POST['coinhive-captcha-token'], 256);
+    if ($coin->error) {
+        die(warning('Remember to verify yourself.'));
+    }
+    $user->edit(
     'pages/storage/pfp/',
-    $sesh ['name'],
-    $_FILES ['pfp'],
-    $_POST ['desc'],
-    $_POST ['userName'],
-    $_POST ['pass'],
-    $_POST ['confPass']
+    $sesh['name'],
+    $_FILES['pfp'],
+    $_POST['desc'],
+    $_POST['userName'],
+    $_POST['pass'],
+    $_POST['confPass']
   );
-  header ("Refresh: 0");
+    header("Refresh: 0");
 }
 
 

@@ -1,18 +1,18 @@
 <?php
-  session_start ();
-  if (isset ($_COOKIE ['Access']) && $_COOKIE ['Access'] != '') {
-    $cookies = new cookies ($conf);
-    $users = $cookies ->verifyCookie (
+  session_start();
+  if (isset($_COOKIE['Access']) && $_COOKIE['Access'] != '') {
+      $cookies = new cookies($conf);
+      $users = $cookies->verifyCookie(
       '*',
       'users',
       'cookie',
-      $_COOKIE ['Access']
+      $_COOKIE['Access']
     );
-    if (!$cookies ->error) {
-      foreach ($users as $user) {
-        user::session ($user);
+      if (!$cookies->error) {
+          foreach ($users as $user) {
+              user::session($user);
+          }
       }
-    }
   }
 ?>
 <!DOCTYPE html>
@@ -25,8 +25,8 @@
         <meta name="author" content="Perple Seagres">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="pages/img/realeyesteeth.png">
-        <link rel="stylesheet" type="text/css" href="pages/constants/styleMain.css">
-        <script src="pages/constants/jsMain.js" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" href="pages/constants/css/styleMain.css">
+        <script src="pages/constants/js/jsMain.js" type="text/javascript"></script>
 
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
         <script src="https://authedmine.com/lib/authedmine.min.js"></script>
