@@ -1,12 +1,14 @@
 // CLOCK
 
-function clock () {
-    var date = new Date (),
-        h = date.getHours (),
-        m = date.getMinutes (),
-        s = date.getSeconds ();
+function clock ()
+{
+    var date = new Date(),
+        h = date.getHours(),
+        m = date.getMinutes(),
+        s = date.getSeconds();
 
-    function check (i)  {
+    function check(i)
+    {
         if (i < 10) {
             i = "0" + i;
             return i;
@@ -15,11 +17,16 @@ function clock () {
         }
     }
 
-    h = check (h);
-    m = check (m);
-    s = check (s);
+    h = check(h);
+    m = check(m);
+    s = check(s);
 
-    document.getElementById ("time").innerHTML = h + ":" + m + ":" + s;
+    document.getElementById("time").innerHTML = h + ":" + m + ":" + s;
 
-    setTimeout ("clock ()", 1000);
+    setTimeout("clock()", 1000);
+}
+
+function startMsg()
+{
+    
 }

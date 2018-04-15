@@ -3,12 +3,11 @@
 class cookies
 {
     public $conf;
-    public $error;
+    public $error = 0;
 
-    public function __construct($conf)
+    public function __construct($param)
     {
-        $this->conf = $conf;
-        $this->error = 0;
+        $this->conf = $param['conf'];
     }
     public function verifyCookie($info, $table, $column, $value)
     {
@@ -51,5 +50,19 @@ class cookies
         } else {
             $this->error = 1;
         }
+    }
+    public function spamCookie()
+    {
+      if ($postIdle > 0) {
+          $lastIdle = $_COOKIE['idleTime'];
+          setcookie('idleTime', time());
+          if ($lastIdle) {
+              $idleDifference = time() - $lastIdle;
+              if ($idleDifference <= $postIdle) {
+                  warning('Spam detected, please wait '.$postIdle.' seconds.');
+                  $this->error = 1;
+              }
+          }
+      }
     }
 }

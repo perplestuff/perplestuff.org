@@ -2,36 +2,53 @@
 <!-- VIEWER -->
 
 <?php require 'constants/header.php'; ?>
+
 <script type="text/javascript">
-
-$(document).ready(function() {
-  $('#chat').load('load.php');
-
-  $('#post').submit(function() {
-    return false;
-  });
+var timeID = 0;
+$(document).ready(function()
+{
+    startMsg();
+    $('#post').click(function()
+    {
+        sendMsg();
+        $('#msg').val('');
+    });
 });
-
-// function submit_msg() {
-//     var message = message.value;
-//     var xmlHttp = new XMLHttpRequest();
-//
-//     xmlhttp.open('GET','messageboard?message='+message, true);
-//     xmlhttp.send();
-// }
-//
-// $(document).ready(function(e){
-//     $.ajaxSetup({cache:false});
-//     setInterval(function(){
-//         $('#chat').load('pages/storage/messages.txt');
-//     },1000);
-// });
-//
-// xmlhttp.onreadystatechange = function() {
-//     if (this.readyState == 4 && this.status == 200) {
-//         var chats = document.getElementById("chat").innerHTML = xmlhttp.responseText;
-//     }
-// }
+function startMsg()
+{
+    setInterval(function(){getMsg();}, 2000);
+}
+function getMsg()
+{
+    $.ajax({
+        type: 'GET',
+        url: '?id='+timeID
+    }).done(function(data))
+    {
+        var jsonData = JSON.parse(data);
+        var jsonLength = jsonData.results.length;
+        var html = '';
+        for (var i = 0; i < jsonLength; i++) {
+            var result = jsonData.results[i];
+            html += '<div style="'+result.options+'">['
+            +result.time'] <b>'
+            +result.username+'</b>: '
+            +result.msg+'</div>';
+            timeID = result.id;
+        }
+        $('#chat').append(html);
+    });
+}
+function sendMsg()
+{
+    var chat = $('$msg').val();
+    if (chat !== '') {
+        $.ajax({
+            type: 'GET',
+            url: 'load.php?msg'+encodeURIComponent(chat)
+        });
+    }
+}
 </script>
 
 <div id="header">
@@ -56,7 +73,7 @@ $(document).ready(function() {
   </div>
   <div id="center">
     <div class="msg">
-      <div id="chat"></div>
+      <div id="chat">...</div>
       <form action="messageboard" id="post">
         <p>Message: <input type="text" name="msg" id="msg" size="35" autofocus /></p>
         <input type="submit" id="submit"/><br/>
@@ -81,9 +98,9 @@ if (isset($_GET ['message'])) {
     );
         //max str length, min str length
         $up ->msgFilters(
-      100,
-      1
-    );
+        100,
+        1
+        );
         //ipBlock, spamwords, spamstr, maxlines, file location, maxSamestr
         $up ->messageboard(
       '',
