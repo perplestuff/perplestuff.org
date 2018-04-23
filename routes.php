@@ -15,7 +15,7 @@ $router->get('thanks', 'pages/thanks.php');
 $router->get('pages/storage/messages.txt', 'pages/storage/messages.txt');
 $router->get('signup', 'pages/signup.php');
 $router->get('profile', 'pages/profile.php');
-$router->get('load.php', 'pages/ajax/load.php');
+$router->get('core/ajax.php', 'core/ajax.php');
 
 $router->post('archive', 'pages/archive.php');
 $router->post('profile', 'pages/profile.php');
@@ -24,3 +24,4 @@ $router->post('feedback', 'core/feedback.php');
 $router->post('fileboard', 'pages/fileboard.php');
 $router->post('signup', 'pages/signup.php');
 $router->post('options', 'pages/constants/options.php');
+$router->post('messageboard', 'pages/messageboard.php');
