@@ -10,4 +10,4 @@
    <li><a href="thanks">Support Me.</a></li>
 </ul>
 
-<?php require 'options.php' ?>
+<?php //require 'options.php' ?>

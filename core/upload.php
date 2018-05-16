@@ -28,14 +28,14 @@ class filter
     {
         if (strlen($param) > $this->txtLen) {
             warning('Text length to long, please shorten to '.$this->txtLen);
-            $this->error = 1;
+            // $this->error = 1;
         }
     }
     public function txtCount($param)
     {
         if (count(explode($param, ' ')) > $this->txtCount) {
             warning('Text count is to big, please shorten to '.$this->txtCount);
-            $this->error = 1;
+            // $this->error = 1;
         }
     }
     public function spamWord($param)
@@ -113,7 +113,7 @@ class upload extends filter
     }
     public function fileUpload($param)
     {
-        move_uploaded_file($this->dir.date().$param);
+        move_uploaded_file($this->dir.date("Y-m-d H:i:s").$param);
     }
 
     public function messageboard($param)

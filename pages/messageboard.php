@@ -1,66 +1,29 @@
 <!-- VIEWER -->
 <?php require 'constants/header.php'; ?>
-<?php var_dump($_POST['msg']); ?>
 <script type="text/javascript">
-var timeID = 0;
-$(document).ready(function()
-{
-    $('#post').bind('keypress', function(e)
-    {
-        if ((e.keyCode || e.which) == 13) {
-            sendMsg();
-            $('#msg').val('');
-        }
-    });
-    $('#submit').click(function()
-    {
-        sendMsg();
-        $('#msg').val('');
-    });
-    // setinterval(function()
-    // {
-    //         $.ajax({
-    //             type: 'GET',
-    //             url: 'messageboard?id='+timeID
-    //         }).done(function(data)
-    //         {
-    //             var jsonData = JSON.parse(data);
-    //             var jsonLength = jsonData.results.length;
-    //             var html = '';
-    //             for (var i = 0; i < jsonLength; i++) {
-    //                 var result = jsonData.results[i];
-    //                 html += '<div style="'+result.options+'">['+result.time'] <b>'+result.username+'</b>: '+result.msg+'<br/>'+result.pic+'</div>';
-    //                 timeID = result.id;
-    //             }
-    //             $('#chat').append(html);
-    //         });
-    //     }, 1000);
-});
-function sendMsg()
-{
-    // var msg = $('#msg').val();
-    // var color = $('#color option:selected').text();
-    // var file = $('#file').val();
-    if (msg !== '') {
-        $.post('messageboard', {
-            msg: $('#msg').serialize()
-        });
-        // function(data)
-        // {
-        //     alert(data);
-        // })
-    }
-    // if (file !== '') {
-    //     $.ajax({
-    //         url: 'messageboard',
-    //         type: 'POST',
-    //         data: new FormData(this),
-    //         contentType: false,
-    //         cache: false,
-    //         processData: false
-    //     });
-    // }
-}
+// var timeID = 0;
+// $(document).ready(function()
+// {
+//     $('#post').bind('keypress', function(e)
+//     {
+//         if ((e.keyCode || e.which) == 13) {
+//             sendMsg();
+//             $('#msg').val('');
+//         }
+//     });
+//     $('#submit').click(function()
+//     {
+//         sendMsg();
+//         $('#msg').val('');
+//     });
+// });
+// function sendMsg()
+// {
+//     var msg = $('#msg').val();
+//     var request = new XMLHttpRequest();
+//     request.open('GET', 'messageboard?msg='+msg, true);
+//     request.send();
+// }
 </script>
 
 <div id="header">
@@ -86,9 +49,9 @@ function sendMsg()
     <div id="center">
         <div id="chat">...</div>
         <div id="post">
-            <form id="messageboard">
+            <form action="messageboard" method="POST" enctype="multipart/form-data" id="messageboard">
                 <p>Message: <input type="text" name="msg" id="msg" size="35" autofocus /></p>
-                <p>Options: <select id="color">
+                <p>Options: <select name="color" id="color">
                     <option value="style='color:green;'">green</option>
                     <option value="style='color:blue;">blue</option>
                     <option value="style='color:yellow;">yello</option>
@@ -98,8 +61,8 @@ function sendMsg()
                     <option value="style='color:red;">red</option>
                 </select>
                 </p>
-                <p>File: <input type="file" name="pic" id="file"/></p>
-                <input type="button" value="Submit." id="submit"/><br/>
+                <p>File: <input type="file" name="file" id="file"/></p>
+                <input type="submit" value="Submit." id="submit"/><br/>
             </form>
         </div>
     </div>
@@ -122,18 +85,18 @@ if (isset($_GET['timeID'])) {
     $jsonData = $upload->getLines($id);
     print $jsonData;
 }
-$color = htmlspecialchars($_GET['color']);
+$color = htmlspecialchars($_POST['color']);
 if (isset($_POST['msg'])) {
     $msg = htmlspecialchars($_POST['msg']);
     $filter->txtLen($msg);
     $filter->txtLen($color);
     $filter->txtCount($msg);
     if (!$filter->error) {
-        $upload->messageboard(['message'=>$msg,'owner'=>'lol','options'=>$color]);
+        $upload->messageboard(['msg'=>$msg,'owner'=>'lol','options'=>$color]);
     }
 }
-if (isset($_POST['file'])) {
-    $file = $_POST['file'];
+if (isset($_FILES['file'])) {
+    $file = $_FILES['file'];
     $fileName = htmlspecialchars($file['name']);
     $filter->txtLen($fileName);
     $filter->fileType($fileName);
