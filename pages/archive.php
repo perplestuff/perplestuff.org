@@ -35,14 +35,14 @@ if (isset($_POST['submit'])) {
 }
 
  ?>
-<?php require 'constants/header.php'; ?>
+<?php require_once 'constants/header.php'; ?>
 <div id="header">
   <header>[Archive]</header>
 </div>
 <body>
   <div id="left">
     <p>This is the archive, please stay awhile.</p>
-    <?php require 'constants/nav.php'; ?>
+    <?php require_once 'constants/nav.php'; ?>
     <div id="info">
       <p>You can use the search bar to lookup users which will show their name, profile picture, description, and the date they joined.</p>
       <p>Make shure you spell their name the exact way its displayed.</p>
@@ -99,4 +99,4 @@ if (isset($_POST['submit'])) {
     </div>
   </div>
 </body>
-<?php require 'constants/footer.php'; ?>
+<?php require_once 'constants/footer.php'; ?>

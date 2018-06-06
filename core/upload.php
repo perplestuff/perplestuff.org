@@ -9,11 +9,10 @@ class filter
     public $ipBlock;
     public $fileTypes;
     public $maxSize;
-    public $dir;
     public $fileExists;
     public $error = 0;
 
-    public function __contruct($param)
+    public function __construct($param)
     {
         $this->txtLen = $param['txtLen'];
         $this->txtCount = $param['txtCount'];
@@ -22,26 +21,26 @@ class filter
         $this->ipBlock = $param['ipBlock'];
         $this->fileTypes = $param['fileTypes'];
         $this->maxSize = $param['maxSize'];
-        $this->dir = $param['dir'];
     }
     public function txtLen($param)
     {
         if (strlen($param) > $this->txtLen) {
             warning('Text length to long, please shorten to '.$this->txtLen);
-            // $this->error = 1;
+            $this->error = 1;
         }
     }
     public function txtCount($param)
     {
         if (count(explode($param, ' ')) > $this->txtCount) {
             warning('Text count is to big, please shorten to '.$this->txtCount);
-            // $this->error = 1;
+            $this->error = 1;
         }
     }
     public function spamWord($param)
     {
-        foreach ($param as $a) {
-            if (strpos($this->spamStr, strtolower($a))) {
+        $myString = explode(' ', $param);
+        foreach ($myString as $a) {
+            if (in_array($a, $this->spamWord)) {
                 warning('Text contains a known spam word, please exclude '.$a);
                 $this->error = 1;
             }
@@ -49,40 +48,34 @@ class filter
     }
     public function spamStr($param)
     {
-        foreach ($param as $a) {
-            if ($this->spamStr == strtolower($a)) {
-                warning('Text contains a known spam sentence, please exclude '.$a);
+        foreach ($this->spamStr as $a) {
+            if (strpos($a, strtolower($param)) !== false) {
+                warning('Text contains a known spam sentence, please exclude '.$this->spamStr);
                 $this->error = 1;
             }
         }
     }
-    public function ipBlock($param)
+    public function ipBlock()
     {
-        foreach ($param as $a) {
-            if ($_SERVER['REMOTE_ADDR'] == $a) {
-                warning('Your ip has been blocked: '.$_SERVER['REMOTE_ADDR'].'. If this is a mistake please contact the administrator.');
-                $this->error = 1;
-            }
+        if (in_array($_SERVER['REMOTE_ADDR'], [$this->ipBlock])) {
+            warning('Your ip has been blocked: '.$_SERVER['REMOTE_ADDR'].'. If this is a mistake please contact the administrator.');
+            $this->error = 1;
         }
     }
-    public function fileType($param)
+    public function fileTypes($param)
     {
-        foreach ($param as $a) {
-            $ext = explode('.', $a);
-            $fileExt = strtolower(end($ext));
-            if ($this->fileTypes !== $fileExt) {
-                warning('File type is plocked: '.$fileExt.', please try a different one.');
-                $this->error = 1;
-            }
+        $ext = explode('.', $param);
+        $fileExt = strtolower(end($ext));
+        if (!in_array($fileExt, $this->fileTypes)) {
+            warning('File type is blocked: '.$fileExt.', please try a different one.');
+            $this->error = 1;
         }
     }
     public function maxSize($param)
     {
-        foreach ($param as $a) {
-            if ($a > $this->maxsize) {
-                warning('File size is too big: '.$a.', please try a different one.');
-                $this->error = 1;
-            }
+        if ($param > $this->maxSize) {
+            warning('File size is too big: '.$param.', please try a different one.');
+            $this->error = 1;
         }
     }
     public function alreadyExists($param)
@@ -95,37 +88,28 @@ class filter
         }
     }
 }
-class upload extends filter
+class upload
 {
-    //set properties
+    public $dir;
     public $conf;
-
     public function __construct($param)
     {
-        //give properties correct values
+        $this->dir = $param['dir'];
         $this->conf = $param['conf'];
     }
-    public function getLines()
+    public function setCookie($param)
     {
-        // $this->conf['database']->select(
-        //     ''
-        // );
+        setcookie($param['cookie'], $param['info'], $param['time']);
     }
     public function fileUpload($param)
     {
-        move_uploaded_file($this->dir.date("Y-m-d H:i:s").$param);
+        if (!move_uploaded_file($param['from'], $param['to'])) {
+            warning('Upload failed, please contact the administrator.');
+        }
     }
-
-    public function messageboard($param)
+    public function dir($param)
     {
-        $this->conf['database']->insert(
-            'msg',
-            [
-                'message'=>$param['msg'],
-                'picture'=>$param['pic'],
-                'owner'=>$param['owner'],
-                'options'=>$param['options']
-            ]
-        );
+        $ext = explode('.', $param);
+        return $this->dir.date("Y-m-d_H:i:s").'.'.current($ext).'.'.end($ext);
     }
 }

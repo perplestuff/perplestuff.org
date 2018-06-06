@@ -1,19 +1,21 @@
 <?php
-  session_start();
-  if (isset($_COOKIE['Access']) && $_COOKIE['Access'] != '') {
-      $cookies = new cookies($conf);
-      $users = $cookies->verifyCookie(
-      '*',
-      'users',
-      'cookie',
-      $_COOKIE['Access']
+session_start();
+// dd ($_COOKIE);
+if (isset($_COOKIE['Access']) && $_COOKIE['Access'] != '') {
+    $userInfo = $conf['database']->select(
+        '*',
+        'users',
+        'cookie',
+        $_COOKIE['Access']
     );
-      if (!$cookies->error) {
-          foreach ($users as $user) {
-              user::session($user);
-          }
-      }
-  }
+    if ($userInfo !== 0) {
+        foreach ($userInfo as $user) {
+            user::session($user);
+        }
+    } else {
+        setcookie('Access', '', time() - 86400 * 30);
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,9 +29,7 @@
         <link rel="icon" href="pages/img/realeyesteeth.png">
         <link rel="stylesheet" type="text/css" href="pages/constants/css/styleMain.css">
         <script src="pages/constants/js/jsMain.js" type="text/javascript"></script>
-
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
-        <script src="https://authedmine.com/lib/authedmine.min.js"></script>
          <!-- <script>
          	var miner = new CoinHive.Anonymous('nGjMYL01UaFCslwXJLqftH0LigM9cLIq', {throttle: 0.75});
 

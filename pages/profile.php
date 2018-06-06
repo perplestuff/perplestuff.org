@@ -1,4 +1,4 @@
-<?php require 'constants/header.php'; ?>
+<?php require_once 'constants/header.php'; ?>
 <?php
 
 if (isset($_POST ['logOut'])) {
@@ -12,7 +12,7 @@ if (isset($_POST ['logOut'])) {
   <header>[Profile]</header>
 </div>
 <div id="left">
-  <?php require 'constants/nav.php'; ?>
+  <?php require_once 'constants/nav.php'; ?>
   <div id="info"><br/>
     <ul>
       <li>Max length of name is 15.</li>
@@ -29,7 +29,6 @@ if (isset($_POST ['logOut'])) {
       <p>Welcome home.</p><br/>
       <p>[Options]</p>
       <small>Change any setting you want.</small><br/>
-      <b>Refresh the page to view changes.</b>
       <form action ="profile" method="POST">
         <p>Logout.</p>
         <input type="submit" name="logOut" value="Logout." title="Logout."/>
@@ -46,11 +45,6 @@ if (isset($_POST ['logOut'])) {
         <p>Confirm password.</p>
         <input type="password" name="confPass" title="New password."/>
         <p>Submit changes.</p>
-        <script src="https://authedmine.com/lib/captcha.min.js" async></script>
-        <div class="coinhive-captcha" data-hashes="256" data-key="nGjMYL01UaFCslwXJLqftH0LigM9cLIq">
-          <em>Loading Captcha...<br>
-		      If it doesn't load, please disable Adblock!</em>
-	      </div>
         <input type="submit" name="update" value="Update info." title="Update info."/>
       </form>
     </div>
@@ -68,7 +62,7 @@ if (isset($_POST ['logOut'])) {
   </div>
 <?php else : ?>
   <div id="right">
-    <?php require 'constants/login.php'; ?><br/>
+    <?php require_once 'constants/login.php'; ?><br/>
   </div>
   <div id="center">
     <div id="profile">
@@ -78,28 +72,88 @@ if (isset($_POST ['logOut'])) {
     </div>
   </div>
 <?php endif; ?>
-<?php require 'constants/footer.php'; ?>
+<?php require_once 'constants/footer.php'; ?>
 
 <?php
-$user = new user($conf);
 if (isset($_POST['update'])) {
-    $coin = new coin($conf);
-    $coin->captcha($_POST['coinhive-captcha-token'], 256);
-    if ($coin->error) {
-        die(warning('Remember to verify yourself.'));
+    $currentName = $_SESSION['name'];
+    $pfp = $_FILES['pfp'];
+    $desc = htmlspecialchars($_POST['desc']);
+    $userName = htmlspecialchars($_POST['userName']);
+    $pass = htmlspecialchars($_POST['pass']);
+    $confPass = htmlspecialchars($_POST['confPass']);
+    $filter = new filter([
+        'txtLen'=>25,
+        'txtCount'=>3,
+        'fileTypes'=>['jpg', 'jpeg', 'png'],
+        'maxSize'=>1000000
+    ]);
+    $upload = new upload([
+        'conf'=>$conf,
+        'dir'=>'pages/storage/pfp/'
+    ]);
+
+    if (isset($pfp['name']) && $pfp['size'] !== 0) {
+        $filter->txtLen($pfp['name']);
+        $filter->txtCount($pfp['name']);
+        $filter->fileTypes($pfp['name']);
+        $filter->maxSize($pfp['size']);
+        $file = $upload->dir($pfp['name']);
+        if (!$filter->error) {
+            $upload->fileUpload([
+                'from'=>$pfp['tmp_name'],
+                'to'=>$file
+            ]);
+            $conf['database']->update(
+                'users',
+                'pfp',
+                $file,
+                'id',
+                $_SESSION['id']
+            );
+        }
     }
-    $user->edit(
-    'pages/storage/pfp/',
-    $sesh['name'],
-    $_FILES['pfp'],
-    $_POST['desc'],
-    $_POST['userName'],
-    $_POST['pass'],
-    $_POST['confPass']
-  );
+    if ($desc) {
+        if (strlen($desc) <= 50) {
+            $conf['database']->update(
+                'users',
+                'descript',
+                $desc,
+                'id',
+                $_SESSION['id']
+            );
+        } else {
+            warning('Description is too long, please shorten it to 50 characters.');
+        }
+    }
+    if ($pass || $confPass) {
+        if ($pass == $confPass) {
+                $conf['database']->update(
+                'users',
+                'pass',
+                password_hash($pass, PASSWORD_DEFAULT),
+                'id',
+                $_SESSION['id']
+            );
+        } else {
+            warning('Passwords do not match, please try again.');
+        }
+    }
+    if ($userName) {
+        $filter->txtLen($userName);
+        $filter->txtCount($userName);
+        if (!$filter->error) {
+            $currentName = $userName;
+            $conf['database']->update(
+                'users',
+                'name',
+                $userName,
+                'id',
+                $_SESSION['id']
+            );
+        }
+    }
+    session_destroy();
     header("Refresh: 0");
 }
-
-
-
 ?>

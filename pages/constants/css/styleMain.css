@@ -34,30 +34,14 @@ html {
 }
 
 /* SPECIFICS */
+p.msg {
+    color: green;
+    font-family: "lucida console";
+}
+div.msg {
 
-img.main {
-    max-height: 150px;
-    width: auto;
 }
-img.memorial {
-    max-height: auto;
-    max-width: 250px;
-}
-
-.sandwitch1 {
-    height: 40px;
-    position: relative;
-    left: 0;
-    top: 0;
-}
-.sandwitch2 {
-    height: 75px;
-    width: 325px;
-    position: absolute;
-    left: inherit;
-    top: 10px;
-}
-small.copy {
+#copyright {
     font-size: 12px;
     font-family: "arial", serif;
     color: grey;
@@ -65,7 +49,7 @@ small.copy {
     margin-left = auto;
     margin-right = auto;
 }
-ul.nav {
+#nav {
     width: 125px;
     text-align: left;
     color: orange;
@@ -75,125 +59,6 @@ div.login {
     text-align: left;
     background: magenta;
     padding: 10px
-}
-div.feedback {
-   background: red;
-   color: black;
-   padding: 10px;
-}
-div.memorial {
-    color: white;
-    background: purple;
-    padding: 10px;
-}
-div.msg {
-  border-style: solid;
-  border-color: purple;
-  border-width: 3px;
-  margin: 15px 15px 15px 325px;
-  padding: 5px;
-}
-div.userList {
-  float: right;
-  background-color: darkgrey;
-  width: 225px;
-  padding: 10px;
-}
-div.userList li {
-  border-style: solid;
-  border-color: red;
-  border-width: medium;
-}
-div.userList img {
-  height: 75px;
-  max-width: 100px;
-}
-p.msg {
-    color: green;
-    font-family: "lucida console";
-}
-#changelog {
-  text-align: left;
-  margin-left: 200px;
-}
-#rates {
-    padding: 15px;
-}
-#rates img {
-    max-width: 150px;
-}
-#rates h2 {
-    background-color: red;
-    display: inline-block;
-    padding: 10px;
-}
-#rates table {
-    margin-left: 30%;
-}
-#rates th {
-    color: blueviolet;
-}
-#rates td {
-    padding-left: 20px;
-}
-#chat {
-  color: skyblue;
-  text-align: left;
-}
-#files {
-  max-width: 400px;
-  max-height: auto;
-  text-align: left;
-}
-div.file {
-  border-style: solid;
-  border-color: yellow;
-  border-width: 3px;
-  margin: 15px 15px 15px 325px;
-  padding: 5px;
-  max-width: 150px;
-  max-height: 150px;
-}
-#about p {
-  font-size: 15px;
-  text-indent: 40px;
-}
-#about h1 {
-  font-size: 30px;
-}
-#about {
-  text-align: left;
-  margin: 15px 15px 15px 300px;
-  border-style: solid;
-  border-color: red;
-  border-width: 3px;
-  padding: 5px;
-}
-#about img {
-  height: 150px;
-  width: auto;
-}
-#about b {
-  color: yellow;
-}
-#thank {
-  margin: 15px 300px 15px 300px;
-  border-style: solid;
-  border-color: skyblue;
-  border-width: 3px;
-  padding: 5px;
-  color: green;
-}
-#thank ul p {
-  /* display: inline-block; */
-}
-#info {
-  width: 175px;
-  background-color: grey;
-}
-#admin {
-  color: green;
-  padding: 25px;
 }
 #profile img {
   height: 150px;
@@ -209,17 +74,15 @@ div.file {
   background-color: lightgrey;
   color: blueviolet;
 }
-#donate {
+#info {
+  width: 175px;
   background-color: grey;
-  padding: 20px;
-  margin: 0px 250px 15px 250px;
 }
-#donate img {
-  height: 150px;
-  width: auto;
+img.main {
+    max-height: 150px;
+    width: auto;
 }
-#goal {
-  padding: 10px;
-  margin: 15px 15px 0px 15px;
-  background-color: orange;
+#scroll {
+    overflow-y: scroll;
+    height: 750px;
 }

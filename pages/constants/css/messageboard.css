@@ -1,0 +1,15 @@
+#chat {
+    border-style: solid;
+    border-color: white;
+    border-width: 1px;
+    margin: 15px 15px 15px 15px;
+    padding: 5px;
+    text-align: left;
+}
+#chat img {
+    max-width: 150px;
+    max-height: 150px;
+}
+#post {
+    text-align: left;
+}

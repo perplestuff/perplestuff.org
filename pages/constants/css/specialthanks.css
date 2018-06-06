@@ -1,0 +1,15 @@
+#thank {
+  margin: 15px 300px 15px 300px;
+  border-style: solid;
+  border-color: skyblue;
+  border-width: 3px;
+  padding: 5px;
+  color: green;
+}
+#thank ul p {
+  /* display: inline-block; */
+}
+#admin {
+  color: green;
+  padding: 25px;
+}

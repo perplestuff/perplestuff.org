@@ -1,10 +1,11 @@
-<?php require 'constants/header.php'; ?>
+<?php require_once 'constants/header.php'; ?>
+<link rel="stylesheet" href="pages/constants/css/thanks.css" type="text/css"/>
 <div id="header">
   <header>[Thanks]</header>
 </div>
 <body>
   <div id="left">
-    <?php require 'constants/nav.php'; ?>
+    <?php require_once 'constants/nav.php'; ?>
     <div id="info">
       <p>Feel free to donate, if you care too.</p>
       <p>Donations are not nessecary to the development to this site.</p>
@@ -38,4 +39,4 @@
     </div>
   </div>
 </body>
-<?php require 'constants/footer.php'; ?>
+<?php require_once 'constants/footer.php'; ?>

@@ -1,74 +1,41 @@
 <!-- VIEWER -->
-<?php require 'constants/header.php'; ?>
-<script type="text/javascript">
-// var timeID = 0;
-// $(document).ready(function()
-// {
-//     $('#post').bind('keypress', function(e)
-//     {
-//         if ((e.keyCode || e.which) == 13) {
-//             sendMsg();
-//             $('#msg').val('');
-//         }
-//     });
-//     $('#submit').click(function()
-//     {
-//         sendMsg();
-//         $('#msg').val('');
-//     });
-// });
-// function sendMsg()
-// {
-//     var msg = $('#msg').val();
-//     var request = new XMLHttpRequest();
-//     request.open('GET', 'messageboard?msg='+msg, true);
-//     request.send();
-// }
-</script>
-
+<?php
+if (isset($_POST['color']) && $_POST['color'] !== "") {
+    $color = $_POST['color'];
+    setcookie('color', $_POST['color'], time() + 86400 * 30);
+} elseif(isset($_COOKIE['color'])) {
+    $color = $_COOKIE['color'];
+}
+?>
+<?php require_once 'constants/header.php'; ?>
+<link rel="stylesheet" href="pages/constants/css/messageboard.css" type="text/css"/>
+<script src=pages/constants/js/messageboard.js type="text/javascript"></script>
 <div id="header">
   <header>[Messageboard]</header>
 </div>
-<body>
+<body onload="refresh(),startScroll(),startMessage()">
     <div id="left">
         <p>This is the messageboard, have fun.</p>
-        <?php require 'constants/nav.php'; ?>
+        <?php require_once 'constants/nav.php'; ?>
         <div id="info">
             <p>Do not forget to log in!</p>
-            <p>Max length of message is 150 charactors. (this will be changed in the future.)</p>
-            <p>Max amount of messages at a time is 25.</p>
+            <p>Max length of message is 150 characters. (this will be changed in the future.)</p>
+            <p>Max amount of messages at a time is 50.</p>
             <p>There is a maximum of a 2 second delay to send messages for spam reasons.</p>
             <b>If an error occures please report this to the administrator immediately.</b>
             <p><b>The owner <u>does not</u> take responsibility<br/> for posts made here.</b></p>
-            <small>The dates shown are local server time.</small>
+            <small>The dates shown are local poster time.</small>
         </div>
     </div>
     <div id="right">
 
     </div>
     <div id="center">
-        <div id="chat">...</div>
-        <div id="post">
-            <form action="messageboard" method="POST" enctype="multipart/form-data" id="messageboard">
-                <p>Message: <input type="text" name="msg" id="msg" size="35" autofocus /></p>
-                <p>Options: <select name="color" id="color">
-                    <option value="style='color:green;'">green</option>
-                    <option value="style='color:blue;">blue</option>
-                    <option value="style='color:yellow;">yello</option>
-                    <option value="style='color:purple;">purple</option>
-                    <option value="style='color:orange;">orange</option>
-                    <option value="style='color:pink;">pink</option>
-                    <option value="style='color:red;">red</option>
-                </select>
-                </p>
-                <p>File: <input type="file" name="file" id="file"/></p>
-                <input type="submit" value="Submit." id="submit"/><br/>
-            </form>
-        </div>
+        <?php require_once 'constants/messageinput.php'; ?>
     </div>
 </body>
 
-<?php require 'constants/footer.php'; ?>
+<?php require_once 'constants/footer.php'; ?>
 
 <?php
 //CONTROLLER
@@ -76,36 +43,51 @@ $filter = new filter([
     'txtLen'=>150,
     'txtCount'=>100,
     'fileTypes'=>['jpg', 'jpeg', 'png', 'gif'],
-    'maxSize'=>1000,
-    'dir'=>'pages/storage/img'
+    'maxSize'=>1000000,
+    'spamWord'=>['dirtynipples'],
+    'spamStr'=>['i like men'],
+    'ipBlock'=>['99999999999']
 ]);
-$upload = new upload(['conf'=>$conf]);
-if (isset($_GET['timeID'])) {
-    $id = intval($_GET['timeID']);
-    $jsonData = $upload->getLines($id);
-    print $jsonData;
+$upload = new upload([
+    'conf'=>$conf,
+    'dir'=>'pages/storage/uploads/'
+]);
+$filter->ipBlock();
+$okMsg = 0;
+$okFile = 0;
+if (isset($_SESSION['name'])) {
+    $name = $_SESSION['name'].' ['.$_SESSION['rank'].']';
+} else {
+    $name = 'Anon [NULL]';
 }
-$color = htmlspecialchars($_POST['color']);
-if (isset($_POST['msg'])) {
+if (isset($_POST['msg']) && strlen($_POST['msg']) !== 0) {
     $msg = htmlspecialchars($_POST['msg']);
+    $filter->spamWord($msg);
+    $filter->spamStr($msg);
     $filter->txtLen($msg);
     $filter->txtLen($color);
     $filter->txtCount($msg);
     if (!$filter->error) {
-        $upload->messageboard(['msg'=>$msg,'owner'=>'lol','options'=>$color]);
+        $okMsg = 1;
     }
 }
-if (isset($_FILES['file'])) {
+if (isset($_FILES['file']) && $_FILES['file']['size'] !== 0) {
     $file = $_FILES['file'];
     $fileName = htmlspecialchars($file['name']);
     $filter->txtLen($fileName);
-    $filter->fileType($fileName);
+    $filter->fileTypes($fileName);
     $filter->maxSize($file['size']);
-    $upload->fileUpload($fileName);
     if (!$filter->error) {
-        $upload->messageboard(['picture'=>$fileName,'owner'=>'lol','options'=>$color]);
-    } else {
-        warning('error.');
+        $fileNN = $upload->dir($fileName);
+        $upload->fileUpload(['from'=>$file['tmp_name'], 'to'=>$fileNN]);
+        $okFile = 1;
     }
+}
+if (!$okFile && $okMsg) {
+    $conf['database']->insert('msg', ['message'=>$msg, 'owner'=>$name, 'options'=>$color]);
+} elseif ($okFile && !$okMsg) {
+    $conf['database']->insert('msg', ['picture'=>$fileNN, 'owner'=>$name, 'options'=>$color]);
+} elseif ($okFile && $okMsg) {
+    $conf['database']->insert('msg', ['message'=>$msg, 'picture'=>$fileNN, 'owner'=>$name, 'options'=>$color]);
 }
 ?>

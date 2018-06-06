@@ -1,11 +1,12 @@
-<?php require 'constants/header.php'; ?>
+<?php require_once 'constants/header.php'; ?>
+<link rel="stylesheet" href="pages/constants/css/about.css" type="text/css"/>
 <div id="header">
   <header>[About]</header>
 </div>
 <body>
   <div id="left">
     <p>This is the about page.</p>
-    <?php require 'constants/nav.php'; ?>
+    <?php require_once 'constants/nav.php'; ?>
     <div id="info">
       <p>Do not take anything on this site as an accurate description of the type of person the owner is.</p>
       <p>The opinions on this page are just opinions, you getting upset over them is your choice.</p>
@@ -20,7 +21,7 @@
       <img src="pages/img/hyperdistort.jpg"/>
       <p><b>The product</b> of my web development hobby and my hatred of
       all other social media outlets. I'm hoping I could create a space
-      where my friendos can say whateverthefuck they want unlike twitter,
+      where my friendos can do as they please unlike twitter,
       reddit, anything google, ect. This probably has been attempted more
       times I can count to but I want to make this function differently
       than any other site. To me every social site on the damn web looks
@@ -31,14 +32,9 @@
       a lot of them don't make it because of general laziness or fear of
       failure. I don't want mine to have that same fate.</p>
       <img src="pages/img/hyperdistort2.jpg"/>
-      <p><b>I'm</b><b> not working almost</b> everyday to reinvent the
+      <p><b>I'm not working almost</b> everyday to reinvent the
       urinary catheter, this is just a fun experiment I could spend a lot
-      of my time on, instead of using the same time to browse trap threads
-      on half chan. Just like how twitter artists make drawings for
-      everybody to see and hate themselves. Thats basically me except the attention seeking
-      part. Also not trying to hate twitter artists but come on guys art is
-      subjective. It would be like me complaining how my syntax looks,
-      which for your information, my syntax is pretty rad.</p>
+      of my time on.</p>
 
       <h1>The beginning</h1><br/>
       <img src="pages/img/hyperdistort1.jpg"/>
@@ -111,4 +107,4 @@
     </div>
   </div>
 </body>
-<?php require 'constants/footer.php'; ?>
+<?php require_once 'constants/footer.php'; ?>

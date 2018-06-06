@@ -15,7 +15,7 @@ $router->get('thanks', 'pages/thanks.php');
 $router->get('pages/storage/messages.txt', 'pages/storage/messages.txt');
 $router->get('signup', 'pages/signup.php');
 $router->get('profile', 'pages/profile.php');
-$router->get('core/ajax.php', 'core/ajax.php');
+$router->get('ajax', 'pages/ajax/ajax.php');
 
 $router->post('archive', 'pages/archive.php');
 $router->post('profile', 'pages/profile.php');

@@ -28,5 +28,10 @@ function clock ()
 
 function startMsg()
 {
-    
+
+}
+
+window.onerror = function (msg, url, linenumber) {
+    alert ('Error: '+msg+'\nURL: '+url+'\nLine Number: '+linenumber);
+    return True;
 }

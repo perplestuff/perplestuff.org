@@ -1,0 +1,22 @@
+#about p {
+  font-size: 15px;
+  text-indent: 40px;
+}
+#about h1 {
+  font-size: 30px;
+}
+#about {
+  text-align: left;
+  margin: 15px 15px 15px 300px;
+  border-style: solid;
+  border-color: red;
+  border-width: 3px;
+  padding: 5px;
+}
+#about img {
+  height: 150px;
+  width: auto;
+}
+#about b {
+  color: yellow;
+}

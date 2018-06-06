@@ -1,4 +1,5 @@
-<?php require 'constants/header.php'; ?>
+<?php require_once 'constants/header.php'; ?>
+<link rel="stylesheet" href="pages/constants/css/specialthanks.css" type="text/css"/>
 <div id="header">
   <header>[Special Thanks]</header>
 </div>
@@ -7,7 +8,7 @@
     <p>This is the special thanks page.</p>
     <p>You can view the important<br/>
     people behind my work.</p>
-    <?php require 'constants/nav.php'; ?>
+    <?php require_once 'constants/nav.php'; ?>
     <div id="info">
       <p>The people listed on the right are either good friends, acquaintances, ect. who have helped me with this project in their freetime.</p>
       <p>The people here <u>DO NOT</u> agree with everthing on this site.</p>
@@ -33,7 +34,7 @@
     <div id="thank">
       <h1>The best peeps.</h1><br/>
       <p>Auropyre</p>
-      <img src="pages/img/tey.png" class="main">
+      <img src="pages/img/taye.jpg" class="main">
       <ul>
         <li>Talented digital artist.</li>
         <li>MY GF NO TOUCHIE.</li>
@@ -80,4 +81,4 @@
     </div>
   </div>
 </body>
-<?php require 'constants/footer.php'; ?>
+<?php require_once 'constants/footer.php'; ?>

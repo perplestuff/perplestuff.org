@@ -1,0 +1,67 @@
+img.memorial {
+    max-height: auto;
+    max-width: 250px;
+}
+
+.sandwitch1 {
+    height: 40px;
+    position: relative;
+    left: 0px;
+    top: 15px;
+}
+.sandwitch2 {
+    height: 75px;
+    width: 325px;
+    position: absolute;
+    left: inherit;
+    top: 100px;
+}
+div.feedback {
+   background: red;
+   color: black;
+   padding: 10px;
+}
+div.memorial {
+    color: white;
+    background: purple;
+    padding: 10px;
+}
+div.userList {
+  float: right;
+  background-color: darkgrey;
+  width: 225px;
+  padding: 10px;
+}
+div.userList li {
+  border-style: solid;
+  border-color: red;
+  border-width: medium;
+}
+div.userList img {
+  height: 75px;
+  max-width: 100px;
+}
+#changelog {
+  text-align: left;
+  margin-left: 200px;
+}
+#rates {
+    padding: 15px;
+}
+#rates img {
+    max-width: 150px;
+}
+#rates h2 {
+    background-color: red;
+    display: inline-block;
+    padding: 10px;
+}
+#rates table {
+    margin-left: 30%;
+}
+#rates th {
+    color: blueviolet;
+}
+#rates td {
+    padding-left: 20px;
+}

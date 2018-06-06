@@ -11,7 +11,8 @@ $profiles = $conf['database']->between(
 );
 ?>
 <!-- VIEWER -->
-<?php require 'constants/header.php'; ?>
+<link rel="stylesheet" href="pages/constants/css/index.css" type="text/css"/>
+<?php require_once 'constants/header.php'; ?>
 <div id="header">
     <div style="float:left; position:absolute; font-size:16px">
         <?php if (isset($_SESSION['name'])) : ?>
@@ -19,13 +20,11 @@ $profiles = $conf['database']->between(
             <em><?= $_SESSION['name']; ?></em>
         <?PHP endif; ?>
     </div>
-    <img class="sandwitch2" src="pages/img/background.gif"/>
-    <img class="sandwitch1" src="pages/img/header.png"/>
-	<!-- <header>[Home Page]<small><i>v.4.8</i></small></header> -->
+	<header>[Home Page]</header>
 </div>
 <body onload="clock()">
 	<div id="left">
-		<?php require 'constants/nav.php'; ?>
+		<?php require_once 'constants/nav.php'; ?>
 		<div id="info">
 			<p>This is the main page where you can view the changelogs and the 5 newest users that registered.</p>
 			<p>Log in or sign up in the [Profile] tab.</p>
@@ -56,7 +55,8 @@ $profiles = $conf['database']->between(
 		</div>
 	</div>
 	<div id="center">
-		<img src="pages/img/header.jpg" class="main">
+        <img class="sandwitch2" src="pages/img/background.gif"/>
+        <img class="sandwitch1" src="pages/img/header.png"/>
 		<p id="time"></p>
 		<header>Nae nae right into the grave.</header>
 		<small>Out of excitment of progress a <u>changelog</u> was meant to
@@ -107,6 +107,20 @@ $profiles = $conf['database']->between(
             </div>
         <?php endif; ?>
 		<div id="changelog">
+            <p class="msg">VERSION 4.8:</p>
+            <b>6-06-19</b><br/>
+            <ul>
+                <li>Refurbished imageboard</li>
+                <li>Added easier controls</li>
+                <li>Utilized jquery for better browsing</li>
+                <li>Rewritten framework for future works and optimization <small>(Thats why it took so long)</small></li>
+            </ul>
+            <p class="msg">[The Future]</p>
+            <ul>
+                <li>Giving the fileboard a new purpose for uploading videos and music</li>
+                <li>Adding more user control</li>
+            </ul>
+            <br/><br/>
 			<p class="msg">VERSION 4.7: <small>(I think)</small></p>
 			<b>3-18-19</b><br/>
 			<ul>
@@ -141,4 +155,4 @@ $profiles = $conf['database']->between(
 	</ul> -->
 
 </body>
-<?php require 'constants/footer.php'; ?>
+<?php require_once 'constants/footer.php'; ?>

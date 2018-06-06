@@ -1,4 +1,4 @@
-<?php require 'constants/header.php'; ?>
+<?php require_once 'constants/header.php'; ?>
 
 <div id="header">
   <header>[Login]</header>
@@ -8,7 +8,7 @@
     <p>This is the Login page, <br/>
     pick a username and password.</p>
     <p><b>Choose wisely!</b></p>
-    <?php require 'constants/nav.php'; ?>
+    <?php require_once 'constants/nav.php'; ?>
   </div>
   <div id="center">
     <h1>Remember to choose a name and password you'll remember.</h1>
@@ -23,32 +23,65 @@
       <p>Profile Picture:</p>
       <input type="file" name="file"/><br/>
       <p>Create user.</p>
-      <script src="https://authedmine.com/lib/captcha.min.js" async></script>
-      <div class="coinhive-captcha" data-hashes="512" data-key="nGjMYL01UaFCslwXJLqftH0LigM9cLIq">
-        <em>Loading Captcha...<br>
-        If it doesn't load, please disable Adblock!</em>
-      </div>
       <input type="submit" name="submit" value="Sign Up."/>
     </form>
   </div>
 </body>
 
-<?php require 'constants/footer.php'; ?>
+<?php require_once 'constants/footer.php'; ?>
 
 <?php
 if (isset($_POST['submit'])) {
-    $coin = new coin($conf);
-    $coin ->captcha($_POST['coinhive-captcha-token'], 512);
-    if ($coin ->error) {
-        die(warning('Remember to verify yourself.'));
-    }
-    $user = new user($conf);
-    $user ->signup(
-    $_POST['name'],
-    $_POST['password'],
-    $_POST['password1'],
-    $_FILES['file']
-  );
-    header('Location: profile');
+    $name = htmlspecialchars($_POST['name']); // getting user inputs
+    $pass = htmlspecialchars($_POST['password']);
+    $pass1 = htmlspecialchars($_POST['password1']);
+    $file = $_FILES['file'];
+    $date = date("d/m/y");
+    $pfp = 'pages/storage/pfp/default.png';
+    $rank = 'User';
+    $filter = new filter([
+        'txtLen'=>25,
+        'txtCount'=>1,
+        'fileTypes'=>['jpg', 'jpeg', 'png'],
+        'maxSize'=>1000000
+    ]);
+    $upload = new upload([
+        'conf'=>$conf,
+        'dir'=>'pages/storage/pfp/'
+    ]);
+    if ($name && $pass) {
+        $check = $conf['database']->select(
+            'name',
+            'users',
+            'name',
+            $name
+        );
+        if ($check !== '') {
+            if ($pass == $pass1) {
+                if (isset($_FILES['file']) && $_FILES['file']['size'] > 0) {
+                    $filter->txtLen($name);
+                    $filter->txtCount($name);
+                    $filter->fileTypes($file['name']);
+                    $filter->maxSize($file['size']);
+                    if (!$filter->error) {
+                        $pfp = $upload->dir($file['name']);
+                        $upload->fileUpload([
+                            'from'=>$file['tmp_name'],
+                            'to'=>$pfp
+                        ]);
+                    }
+                }
+                $pass = password_hash($pass, PASSWORD_DEFAULT);
+                $conf['database']->insert('users', [
+                    'name' => $name,
+                    'pass' => $pass,
+                    'date' => $date,
+                    'pfp' => $pfp,
+                    'rank' => $rank
+                ]);
+                warning('Success! please navigate to the profile tab and sign in.');
+            } else {warning('Passwords do not match, please try again.');}
+        } else {warning('Name already in use, please try another one.');}
+    } else {warning('Either the username field or the password field is blank, please try again.');}
 }
 ?>

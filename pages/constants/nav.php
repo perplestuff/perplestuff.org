@@ -1,4 +1,4 @@
-<ul class="nav">
+<ul id="nav">
    <header>[Navigation]</header>
    <li><a href="/">Home.</a></li>
    <li><a href="profile">Profile.</a></li>
